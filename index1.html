@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Servicios - Precios Actualizados</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    h1 {
+      text-align: center;
+      color: #1a1a1a;
+      margin: 20px 0;
+      font-size: 1.8rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-weight: bold;
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .red-cell {
+      background-color: #ef4444;
+      color: white;
+      font-weight: bold;
+    }
+    .yellow-cell {
+      background-color: #fbbf24;
+      color: #1f2937;
+    }
+    .input-group {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+      gap: 10px;
+    }
+    label {
+      font-weight: bold;
+      color: #1f2937;
+    }
+    input[type="number"] {
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      width: 100px;
+      font-size: 1rem;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #059669;
+    }
+    .footer {
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 30px;
+      padding: 20px;
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Precios Actualizados</h1>
+
+    <!-- Controles -->
+    <div class="controls">
+      <div class="input-group">
+        <label for="day">Día del Mes:</label>
+        <input type="number" id="day" value="16" min="0" max="31">
+      </div>
+      <div class="input-group">
+        <label for="daysInMonth">Días del Mes:</label>
+        <input type="number" id="daysInMonth" value="30" min="28" max="31">
+      </div>
+      <div class="input-group">
+        <label for="usdtRate">Bs. / USDT:</label>
+        <input type="number" id="usdtRate" value="250" step="0.01">
+      </div>
+    </div>
+
+    <!-- Tabla principal -->
+    <table id="pricesTable">
+      <thead>
+        <tr>
+          <th>Servicio</th>
+          <th>Precio (Bs.)</th>
+          <th>Restando (Bs.)</th>
+          <th>Restando (USDT)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="red-cell">Netflix</td>
+          <td class="yellow-cell">Bs.997,50</td>
+          <td id="netflix-bs">$ 0,13</td>
+          <td id="netflix-usdt">$ 3,99</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Prime</td>
+          <td class="yellow-cell">Bs.700,00</td>
+          <td id="prime-bs">$ 0,09</td>
+          <td id="prime-usdt">$ 2,80</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Start + Disney</td>
+          <td class="yellow-cell">Bs.50,00</td>
+          <td id="start-disney-bs">$ -</td>
+          <td id="start-disney-usdt">$ -</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Start + Disney</td>
+          <td class="yellow-cell">Bs.1.050,00</td>
+          <td id="start-disney2-bs">$ 0,14</td>
+          <td id="start-disney2-usdt">$ 4,20</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Paramount</td>
+          <td class="yellow-cell">Bs.575,00</td>
+          <td id="paramount-bs">$ 0,08</td>
+          <td id="paramount-usdt">$ 2,30</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Crunchyroll</td>
+          <td class="yellow-cell">Bs.750,00</td>
+          <td id="crunchyroll-bs">$ 0,10</td>
+          <td id="crunchyroll-usdt">$ 3,00</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Hbo</td>
+          <td class="yellow-cell">Bs.700,00</td>
+          <td id="hbo-bs">$ 0,09</td>
+          <td id="hbo-usdt">$ 2,80</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Flujo Tv</td>
+          <td class="yellow-cell">Bs.1.250,00</td>
+          <td id="flujo-tv-bs">$ 0,17</td>
+          <td id="flujo-tv-usdt">$ 5,00</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Vix</td>
+          <td class="yellow-cell">Bs.750,00</td>
+          <td id="vix-bs">$ 0,10</td>
+          <td id="vix-usdt">$ 3,00</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Canva</td>
+          <td class="yellow-cell">Bs.750,00</td>
+          <td id="canva-bs">$ 0,10</td>
+          <td id="canva-usdt">$ 3,00</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Canva Premium 12 meses</td>
+          <td class="yellow-cell">Bs.2.200,00</td>
+          <td id="canva-premium-12-bs">$ 0,29</td>
+          <td id="canva-premium-12-usdt">$ 8,80</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Canva Premium 3 meses</td>
+          <td class="yellow-cell">Bs.1.250,00</td>
+          <td id="canva-premium-3-bs">$ 0,17</td>
+          <td id="canva-premium-3-usdt">$ 5,00</td>
+        </tr>
+        <tr>
+          <td class="red-cell">Youtube Premium</td>
+          <td class="yellow-cell">Bs.750,00</td>
+          <td id="youtube-premium-bs">$ 0,10</td>
+          <td id="youtube-premium-usdt">$ 3,00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer">
+      <p>© 2025 - Calculadora de Servicios. Actualiza los valores según tu moneda.</p>
+    </div>
+  </div>
+
+  <script>
+    // Datos base: precio en USDT para cada servicio
+    const pricesUsdt = [
+      { name: "Netflix", usdt: 3.99 },
+      { name: "Prime", usdt: 2.80 },
+      { name: "Start + Disney", usdt: 0 },
+      { name: "Start + Disney", usdt: 4.20 },
+      { name: "Paramount", usdt: 2.30 },
+      { name: "Crunchyroll", usdt: 3.00 },
+      { name: "Hbo", usdt: 2.80 },
+      { name: "Flujo Tv", usdt: 5.00 },
+      { name: "Vix", usdt: 3.00 },
+      { name: "Canva", usdt: 3.00 },
+      { name: "Canva Premium 12 meses", usdt: 8.80 },
+      { name: "Canva Premium 3 meses", usdt: 5.00 },
+      { name: "Youtube Premium", usdt: 3.00 }
+    ];
+
+    // IDs de los elementos de la tabla
+    const ids = {
+      netflix: { bs: 'netflix-bs', usdt: 'netflix-usdt' },
+      prime: { bs: 'prime-bs', usdt: 'prime-usdt' },
+      start_disney: { bs: 'start-disney-bs', usdt: 'start-disney-usdt' },
+      start_disney2: { bs: 'start-disney2-bs', usdt: 'start-disney2-usdt' },
+      paramount: { bs: 'paramount-bs', usdt: 'paramount-usdt' },
+      crunchyroll: { bs: 'crunchyroll-bs', usdt: 'crunchyroll-usdt' },
+      hbo: { bs: 'hbo-bs', usdt: 'hbo-usdt' },
+      flujo_tv: { bs: 'flujo-tv-bs', usdt: 'flujo-tv-usdt' },
+      vix: { bs: 'vix-bs', usdt: 'vix-usdt' },
+      canva: { bs: 'canva-bs', usdt: 'canva-usdt' },
+      canva_premium_12: { bs: 'canva-premium-12-bs', usdt: 'canva-premium-12-usdt' },
+      canva_premium_3: { bs: 'canva-premium-3-bs', usdt: 'canva-premium-3-usdt' },
+      youtube_premium: { bs: 'youtube-premium-bs', usdt: 'youtube-premium-usdt' }
+    };
+
+    function updatePrices() {
+      const day = parseInt(document.getElementById('day').value) || 0;
+      const daysInMonth = parseInt(document.getElementById('daysInMonth').value) || 30;
+      const usdtRate = parseFloat(document.getElementById('usdtRate').value) || 250;
+
+      // Calcular días restantes
+      const daysRemaining = day === 0 ? daysInMonth : daysInMonth - day;
+
+      // Calcular precio en Bs. según días restantes
+      const remainingCostBs = pricesUsdt.map(p => p.usdt * usdtRate * (daysRemaining / daysInMonth));
+
+      // Convertir a USDT (solo para mostrar)
+      const remainingCostUsdt = pricesUsdt.map(p => p.usdt * (daysRemaining / daysInMonth));
+
+      // Actualizar la tabla
+      pricesUsdt.forEach((price, index) => {
+        const element = Object.keys(ids)[index];
+        const bsId = ids[element].bs;
+        const usdtId = ids[element].usdt;
+
+        const bsValue = remainingCostBs[index].toFixed(2);
+        const usdtValue = remainingCostUsdt[index].toFixed(2);
+
+        document.getElementById(bsId).textContent = `$ ${bsValue}`;
+        document.getElementById(usdtId).textContent = `$ ${usdtValue}`;
+      });
+    }
+
+    // Escuchar cambios en los inputs
+    document.getElementById('day').addEventListener('change', updatePrices);
+    document.getElementById('daysInMonth').addEventListener('change', updatePrices);
+    document.getElementById('usdtRate').addEventListener('change', updatePrices);
+
+    // Inicializar
+    window.onload = updatePrices;
+  </script>
+
+</body>
+</html>
